@@ -1,30 +1,52 @@
-<!DOCTYPE html []>
 <html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="author" content="MarkdownViewer++" />
-    <title>jsnotes.md</title>
-    <style type="text/css">
-            
-/* Avoid page breaks inside the most common attributes, especially for exports (i.e. PDF) */
-td, h1, h2, h3, h4, h5, p, ul, ol, li {
-    page-break-inside: avoid; 
-}
+    <!-- 
+      [Getting highlight.js](https://highlightjs.org/download/)
+      find   cdnjs   OR
+             jsdelivr
 
-        </style>
+      i use cdnjs
+      https://highlightjs.readthedocs.io/en/latest/api.html#inithighlighting
+
+      see [How to use highlight.js](https://highlightjs.org/usage/)
+      "Getting Started
+      The bare minimum for using highlight.js on a web page is linking to the library along with one of the styles and calling initHighlightingOnLoad:
+
+      <link rel="stylesheet" href="/path/to/styles/default.css">
+      <script src="/path/to/highlight.pack.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script>
+      This will find and highlight code inside of <pre><code> tags; it tries to detect the language automatically. If automatic detection doesn’t work for you, you can specify the language in the class attribute:
+
+      <pre><code class="html">...</code></pre> "
+
+    -->
+    <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/default.min.css"> -->
+    <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/agate.min.css"> -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/vs2015.min.css">
+    
+    <!-- https://github.com/highlightjs/highlight.js/tree/master/src/styles -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>  
+    <style>
+      h1 {color:black;}
+      h2 {color:blue;}
+      body{ margin-left:20px; margin-right:20px; background-color: burlywood;}
+      code{font-size:18px; }
+    </style> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
-  <body>
-    <h1 id="javascript-notes">JavaScript Notes</h1>
-    <h2 id="idioms">Idioms</h2>
-    <pre>
-      <code class="language-javascript">/* BUMMERS:
+<body>
+
+<h1>JavaScript Notes</h1>
+<h2>Idioms</h2>
+<pre><code class="JavaScript">/* BUMMERS:
   - as of Nov 2, 2017 import statements are NOT in Node.js LTS
   - ES6 postponed Array comprehensions (likePython).
         (https://stackoverflow.com/a/35637068/601770)
   - typeof object name discovery: https://stackoverflow.com/q/332422/601770
   - google: es6 prototypes vs closures vs classes
-    - NOT LIKE: Zen of Python is, "There should be one — and preferably -
-        only one obvious way to do it."
+    - NOT LIKE: Zen of Python is, &quot;There should be one — and preferably -
+        only one obvious way to do it.&quot;
 */
  
 /* Create Array lodash Python-like range */
@@ -52,7 +74,7 @@ console.log(q); // true
 const fs = require('fs');
  
 /* read to string one liner */
-var mystr= fs.readFileSync("./mytextfile.txt").toString('utf-8')
+var mystr= fs.readFileSync(&quot;./mytextfile.txt&quot;).toString('utf-8')
  
 /* write string one liner */
 fs.writeFileSync('anthemTemplateOptions.txt', 'Hello Node', (err) =&gt; { if (err) throw err; console.log('write was OK!'); } );
@@ -105,11 +127,11 @@ for (let value of myIterable ) {
 // 31
  
 /* timestamp */
-&lt;p id="myp"&gt;&lt;/p&gt;
+&lt;p id=&quot;myp&quot;&gt;&lt;/p&gt;
 &lt;script&gt;
 window.onload = function(){ 
   let ts = (new Date().toISOString()).replace(/:/g, '.').replace('T', '__').slice(0, -5);
-  document.getElementById("myp").innerHTML = "Hello. It's " +ts;   // 2017-11-13__18.33.16
+  document.getElementById(&quot;myp&quot;).innerHTML = &quot;Hello. It's &quot; +ts;   // 2017-11-13__18.33.16
 };
 &lt;/script&gt;
  
@@ -171,10 +193,10 @@ THIS MEANS YOU, Fred!!!
  
 /* ES6 String substr &amp; substring */
 // see https://stackoverflow.com/a/3745518/601770
-&gt; let s = 'href="https://docs.g.com/doc/d/1lRuC1p7TXRbmI/edit?usp=sharing_eil&amp;ts=5a1f0fbf"'
+&gt; let s = 'href=&quot;https://docs.g.com/doc/d/1lRuC1p7TXRbmI/edit?usp=sharing_eil&amp;ts=5a1f0fbf&quot;'
  
 &gt; s.substring(6)  // same as s.substr(6)
-'https://docs.g.com/doc/d/1lRuC1p7TXRbmI/edit?usp=sharing_eil&amp;ts=5a1f0fbf"'
+'https://docs.g.com/doc/d/1lRuC1p7TXRbmI/edit?usp=sharing_eil&amp;ts=5a1f0fbf&quot;'
 &gt; s.substring(6) === s.substr(6)
 true
  
@@ -186,7 +208,7 @@ false
 'https://docs.g.com/doc/d/1lRuC1p7TXRbmI/edit?usp=sharing_eil&amp;ts=5a1f0fbf'
  
 &gt; s.substr(6, s.length-1) // 2nd arg is the maximum length to return
-'https://docs.g.com/doc/d/1lRuC1p7TXRbmI/edit?usp=sharing_eil&amp;ts=5a1f0fbf"'
+'https://docs.g.com/doc/d/1lRuC1p7TXRbmI/edit?usp=sharing_eil&amp;ts=5a1f0fbf&quot;'
  
 /* get string between 2 strings  (lstr &amp; rstr) */
 function between(instr, lstr, rstr){return instr.split(lstr)[1].split(rstr)[0]}
@@ -200,11 +222,11 @@ between(emailURLTest, 'https://docs.google.com/document/d/', '/edit?')
 /* [JSON  parse &amp; stringify](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON) */
  
 // parse
-var superHeroesText = fs.readFileSync("./superHeroesText.txt").toString('utf-8')
+var superHeroesText = fs.readFileSync(&quot;./superHeroesText.txt&quot;).toString('utf-8')
 var superHeroes = JSON.parse(superHeroesText)
  
 // stringify
-var myJSON = { "name": "Chris", "age": "38" };
+var myJSON = { &quot;name&quot;: &quot;Chris&quot;, &quot;age&quot;: &quot;38&quot; };
 myJSON
 var myString = JSON.stringify(myJSON);
 myString
@@ -267,8 +289,8 @@ let funcName = (param1, param2, …, paramN) =&gt; { statements }
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
 // [Cory Rylan](https://coryrylan.com/blog/javascript-es6-class-syntax)
 /*
-Cory Rylan: "Here is one final look at our Person and Programmer classes. The getters and setters are not necessary in this use case but are there to demonstrate the new syntax."
-Joe: "VERY NICE!"
+Cory Rylan: &quot;Here is one final look at our Person and Programmer classes. The getters and setters are not necessary in this use case but are there to demonstrate the new syntax.&quot;
+Joe: &quot;VERY NICE!&quot;
 */
  
 class Person {
@@ -322,13 +344,13 @@ console.log(cory.name);
 // https://stackoverflow.com/a/38364482
 const fetch = require('node-fetch')
 let urls = [
-   "https://jsonplaceholder.typicode.com/todos/1",
-   "https://jsonplaceholder.typicode.com/todos/2",
-   "https://jsonplaceholder.typicode.com/todos/3"
+   &quot;https://jsonplaceholder.typicode.com/todos/1&quot;,
+   &quot;https://jsonplaceholder.typicode.com/todos/2&quot;,
+   &quot;https://jsonplaceholder.typicode.com/todos/3&quot;
 ];
 let myPromises = urls.map((itm, ix) =&gt; {
-  console.log("The current iteration is: " + ix);
-  console.log("The current element is: " + itm);
+  console.log(&quot;The current iteration is: &quot; + ix);
+  console.log(&quot;The current element is: &quot; + itm);
   return fetch(itm);
 }); // end loop
 The current iteration is: 0
@@ -370,9 +392,21 @@ Promise {
      _eventsCount: 3,
      _maxListeners: undefined,
      members: [] } }
-&gt; {"userId":1,"id":2,"title":"quis ut nam facilis et officia qui","completed":false}
+&gt; {&quot;userId&quot;:1,&quot;id&quot;:2,&quot;title&quot;:&quot;quis ut nam facilis et officia qui&quot;,&quot;completed&quot;:false}
 Share this:
-</code>
-    </pre>
-  </body>
+</code></pre>
+
+<!-- <script>
+hljs.configure({
+  tabReplace: '    ', // 4 spaces
+  classPrefix: ''     // don't append class prefix
+                      // … other options aren't changed
+})
+
+hljs.initHighlighting();
+//hljs.initHighlightingOnLoad();
+
+
+</script> -->
+</body>
 </html>
